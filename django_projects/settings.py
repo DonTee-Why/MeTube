@@ -77,8 +77,8 @@ WSGI_APPLICATION = 'django_projects.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yourDbName',
-        'USER': 'root', 
+        'NAME': 'video_app',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
         # 'PORT': '3306',   #my port is 3306
