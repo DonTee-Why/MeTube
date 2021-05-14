@@ -53,13 +53,13 @@ class Video(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     views = models.BigIntegerField(default=0)
 
-class Comments(models.Model):
+class Comment(models.Model):
     comment = models.CharField(max_length = 256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_parent = models.BigIntegerField(default=0)
     comment_child = models.BigIntegerField(default=0)
 
-class Likes(models.Model):
+class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
