@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'django_projects.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'video_app',
+        'NAME': 'metube',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -128,3 +128,4 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'video_app.User'
