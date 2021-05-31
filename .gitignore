@@ -6,6 +6,7 @@ django_projects/__pycache__/wsgi.cpython-38.pyc
 video_app/__pycache__/__init__.cpython-38.pyc
 video_app/__pycache__/admin.cpython-38.pyc
 video_app/__pycache__/apps.cpython-38.pyc
+video_app/__pycache__/manager.cpython-38.pyc
 video_app/__pycache__/models.cpython-38.pyc
 video_app/__pycache__/urls.cpython-38.pyc
 video_app/__pycache__/views.cpython-38.pyc
