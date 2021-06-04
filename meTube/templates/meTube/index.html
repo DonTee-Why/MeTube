@@ -1,0 +1,64 @@
+{% extends "video_app/layouts/layout.html" %}
+{% load static %}
+
+{% block body %}
+<main class="dt d-flex justify-content-around form-signin text-center">
+    
+    <!-- Log In -->
+    <div class="col-sm-5 dl my-auto">
+        <h1 class="h3 mb-4 fw-bolder">Log In</h1>
+        <form action="{% url 'video_app:signIn' %}" method="post">
+            {% csrf_token %}
+            {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
+
+            <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="floatingEmail">
+                <label for="floatingEmail">Email address</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="floatingPassword">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </form>
+    </div>
+    <!-- Divider -->
+    <div class="vl"></div>
+    <!-- Sign Up -->
+    <div class="col-sm-5 dr">
+        <h1 class="h3 mb-3 fw-bolder">Sign Up</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
+
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="floatingFirstName" placeholder="John" name="floatingFirstName" required>
+                <label for="floatingFirstName">First Name</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="floatingSurname" placeholder="Doe" name="floatingSurname" required>
+                <label for="floatingSurname">Surname</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="floatingEmail" required>
+                <label for="floatingInput">Email address</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="floatingPassword" required>
+                <label for="floatingPassword">Password</label>
+            </div>
+<!-- <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button> -->
+            <a href="{% url 'video_app:index' %}" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</a>
+        </form>
+    </div>
+</main>
+{% endblock %}
