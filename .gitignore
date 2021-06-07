@@ -1,5 +1,6 @@
 video_app/migrations/__pycache__/
 meTube/migrations/__pycache__/
+meTube/__pycache__/
 django_projects/__pycache__/__init__.cpython-38.pyc
 django_projects/__pycache__/settings.cpython-38.pyc
 django_projects/__pycache__/urls.cpython-38.pyc
