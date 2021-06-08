@@ -12,27 +12,13 @@
             <h6 class="mb-4 fw-bold text-white">Create an account today and enjoy unlimited video content</h6>
             <form action="" method="post" id="signInForm">
                 {% csrf_token %}
+                {% for field in signUpForm %}
+                    <div class="form-floating mb-4">
+                        {{ field }}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    </div>
+                {% endfor %}
                 {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
-
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingFirstName" placeholder="John" name="floatingFirstName" required>
-                    <label for="floatingFirstName">First Name</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input type="text" class="form-control" id="floatingSurname" placeholder="Doe" name="floatingSurname" required>
-                    <label for="floatingSurname">Surname</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="floatingEmail" required>
-                    <label for="floatingInput">Email address</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="floatingPassword" required>
-                    <label for="floatingPassword">Password</label>
-                </div>
                 <a href="" class="w-100 btn btn-lg dl-btn-bg text-white" type="submit">Sign in</a>
             </form>
         </div>
@@ -44,24 +30,17 @@
             <h6 class="mb-4 fw-bold text-white">Already a member?</h6>
             <form action="" method="post" class="my-auto" id="signUpForm">
                 {% csrf_token %}
+                {% for field in signInForm %}
+                    <div class="form-floating mb-4">
+                        {{ field }}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    </div>
+                {% endfor %}
                 {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
 
-                <div class="form-floating mb-4">
-                    <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com" name="floatingEmail">
-                    <label for="floatingEmail">Email address</label>
-                </div>
-                <div class="form-floating mb-2">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="floatingPassword">
-                    <label for="floatingPassword">Password</label>
-                </div>
-
-                <div class="checkbox mb-3 text-white">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
                 <button class="w-100 btn btn-lg dr-btn-bg text-white" type="submit">Sign in</button>
             </form>
         </div>
+
     </main>
 {% endblock %}
