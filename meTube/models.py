@@ -1,3 +1,4 @@
+from django.contrib.auth import *
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -19,7 +20,7 @@ class AppUser(models.Model):
 
     first_name = models.CharField(_("First Name"), max_length=256)
     surname = models.CharField(_("Surname"), max_length=256)
-    email = models.EmailField(_("Email Address"), max_length=254)
+    email = models.EmailField(_("Email Address"), max_length=254, unique=True)
     password = models.CharField(_("Password"), max_length=256)
     avatar = models.ImageField(_("Avatar"), upload_to='avatar/', height_field=500, width_field=500, max_length=None)
     date_created = models.DateTimeField(_("Date Created"), auto_now=True, auto_now_add=False)
