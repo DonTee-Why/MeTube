@@ -36,11 +36,12 @@ body {
 
 .dl-btn-bg{
   background: linear-gradient(360deg, #565656 0%, rgba(86, 86, 86, 0.9) 44.27%, rgba(86, 86, 86, 0.8) 76.04%, rgba(86, 86, 86, 0.7) 100%);
-  transition: 0.3s ease-in-out !important;
+  transition: 0.5s ease-in-out,all !important;
 }
 
 .dl-btn-bg:hover{
-  background: #565656;
+  background: #565656 !important;
+  transition: 0.5s ease-in-out,all !important;
 }
 
 .dr{
@@ -52,11 +53,12 @@ body {
 
 .dr-btn-bg{
   background: linear-gradient(360deg, #FB9E0C 0%, rgba(233, 144, 4, 0.9) 45.31%, rgba(233, 144, 4, 0.8) 79.17%, rgba(233, 144, 4, 0.7) 100%);
-  transition: 0.3s ease-in-out !important;
+  transition: 0.5s ease-in-out,all !important;
 }
 
 .dr-btn-bg:hover{
-  background: #D08104;
+  background: #D08104 !important;
+  transition: 0.5s ease-in-out,all !important;
 }
 
 @media (max-width:767px){
