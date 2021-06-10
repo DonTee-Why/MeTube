@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.forms import ModelForm
+from django.shortcuts import *
+from django.forms import *
 
 from .models import AppUser, Video, Comment, Reply, Like
-from django.forms.widgets import EmailInput, PasswordInput, TextInput
 
 class SignInForm(ModelForm):
     class Meta:
@@ -30,27 +29,27 @@ class SignUpForm(ModelForm):
         widgets = {
             'first_name': TextInput(attrs={
                 'class': "form-control",
-                'id': "first_name",
-                'name': "first_name",
+                'id': "floatingFirstName",
+                'name': "floatingFirstName",
                 'placeholder': "John"
             }),
             'surname': TextInput(attrs={
                 'class': "form-control",
                 'id': "floatingSurname",
                 'name': "floatingSurname",
-                'placeholder': "John"
+                'placeholder': "Doe"
             }),
             'email': EmailInput(attrs={
                 'class': "form-control",
                 'id': "floatingEmail",
                 'name': "floatingEmail",
-                'placeholder': "John"
+                'placeholder': "Email Address"
             }),
             'password': PasswordInput(attrs={
                 'class': "form-control",
                 'id': "floatingPassword",
                 'name': "floatingPassword",
-                'placeholder': "John"
+                'placeholder': "Password"
             })
         }
 
