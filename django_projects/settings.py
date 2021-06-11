@@ -106,6 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Authentication Backends
+# https://docs.djangoproject.com/en/3.2/ref/settings/#authentication-backends
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'meTube.auth.MeTubeBackend'
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -132,4 +139,4 @@ MEDIA_URL = '/uploads/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# AUTH_USER_MODEL = 'video_app.User'
+# AUTH_USER_MODEL = 'meTube.AppUser'
