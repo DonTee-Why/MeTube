@@ -86,3 +86,22 @@ def signIn(request):
         "signInForm": SignInForm,
         "signUpForm": SignUpForm
     })
+
+def signUp(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, "meTube/index.html", {
+                "sign_up_status": "ok",
+                "signInForm": SignInForm,
+                "signUpForm": SignUpForm
+            })
+    return render(request, "meTube/index.html", {
+        "status": "error",
+        "signInForm": SignInForm,
+        "signUpForm": SignUpForm
+    })
+    
