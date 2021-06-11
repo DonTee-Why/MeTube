@@ -22,7 +22,7 @@ class AppUser(models.Model):
     surname = models.CharField(_("Surname"), max_length=256)
     email = models.EmailField(_("Email Address"), max_length=254, unique=True)
     password = models.CharField(_("Password"), max_length=256)
-    avatar = models.ImageField(_("Avatar"), upload_to='avatar/', height_field=500, width_field=500, max_length=None)
+    avatar = models.ImageField(_("Avatar"), upload_to='avatar/', height_field=500, width_field=500, max_length=None, blank=True)
     date_created = models.DateTimeField(_("Date Created"), auto_now=True, auto_now_add=False)
     date_updated = models.DateTimeField(_("Date Updated"), auto_now=False, auto_now_add=True)
 
