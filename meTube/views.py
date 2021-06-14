@@ -73,7 +73,8 @@ def signIn(request):
         email = form.data["email"]
         password = form.data["password"]
         user = authenticate(request, email = email, password = password)
-        if user:
+        if user is not None:
+            login(request, user)
             return redirect(reverse('meTube:profile'))
         else:
             return render(request, "meTube/index.html", {
