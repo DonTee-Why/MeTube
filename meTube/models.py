@@ -26,6 +26,14 @@ class AppUser(models.Model):
     last_login = models.DateTimeField(_('Last Login'), blank=True, null=True)
     date_created = models.DateTimeField(_("Date Created"), auto_now=True, auto_now_add=False)
     date_updated = models.DateTimeField(_("Date Updated"), auto_now=False, auto_now_add=True)
+    
+    @property
+    def is_authenticated(self):
+        """
+        Always return True. This is a way to tell if the user has been
+        authenticated in templates.
+        """
+        return True
 
 class Video(models.Model):
 
