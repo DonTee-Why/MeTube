@@ -65,7 +65,7 @@ def index(request):
             "signUpForm": SignUpForm
         })
     else:
-        return render(request, "meTube/index.html")
+        return redirect(reverse('meTube:profile'))
     
 def signIn(request):
     if request.method == "POST":
@@ -106,3 +106,6 @@ def signUp(request):
         "signUpForm": SignUpForm
     })
     
+
+def profile(request):
+    return render(request, "meTube/profile.html")
