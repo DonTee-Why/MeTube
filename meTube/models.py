@@ -2,8 +2,10 @@ from django.contrib.auth import *
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
+import os
 
-# Create your models here.
+def images_path():
+    return os.path.join(settings.MEDIA_URL, 'videos')
 class AppUser(models.Model):
 
     
@@ -13,7 +15,7 @@ class AppUser(models.Model):
         verbose_name_plural = _("AppUsers")
 
     def __str__(self):
-        return self.name
+        return self.first_name
 
     def get_absolute_url(self):
         return reverse("AppUser_detail", kwargs={"pk": self.pk})
@@ -52,7 +54,9 @@ class Video(models.Model):
     title = models.CharField(_("Tile"), max_length=50)
     caption = models.CharField(_("Caption"), max_length=256)
     date_added = models.DateTimeField(_("Date Added"), auto_now=True, auto_now_add=False)
+    filename = models.FilePathField(_("File"), path=None, match=None, recursive=False, default=None, unique=True, max_length=100)
     user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    active = models.BooleanField(_("Active"), default=True)
 
 class Like(models.Model):
 
