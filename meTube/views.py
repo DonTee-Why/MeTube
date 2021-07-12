@@ -1,71 +1,21 @@
-from django.shortcuts import *
-from django.forms import *
-from django.http import *
-from django.urls import *
 from django.contrib.auth import authenticate, login, logout
-
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from .models import AppUser, Video, Comment, Reply, Like
+from .forms import *
 from django.contrib.auth.hashers import make_password
 
-class SignInForm(ModelForm):
-    class Meta:
-        model = AppUser
-        fields = ['email', 'password']
-        widgets = {
-            'email': EmailInput(attrs={
-                'class': "form-control",
-                'id': "floatingEmail",
-                'name': "floatingEmail",
-                'placeholder': "Email Address"
-            }),
-            'password': PasswordInput(attrs={
-                'class': "form-control",
-                'id': "floatingPassword",
-                'name': "floatingPassword",
-                'placeholder': "Password"
-            })
-        }
 
-class SignUpForm(ModelForm):
-    class Meta:
-        model = AppUser
-        fields = ['first_name','surname', 'email', 'password']
-        widgets = {
-            'first_name': TextInput(attrs={
-                'class': "form-control",
-                'id': "floatingFirstName",
-                'name': "floatingFirstName",
-                'placeholder': "John"
-            }),
-            'surname': TextInput(attrs={
-                'class': "form-control",
-                'id': "floatingSurname",
-                'name': "floatingSurname",
-                'placeholder': "Doe"
-            }),
-            'email': EmailInput(attrs={
-                'class': "form-control",
-                'id': "floatingEmail",
-                'name': "floatingEmail",
-                'placeholder': "Email Address"
-            }),
-            'password': PasswordInput(attrs={
-                'class': "form-control",
-                'id': "floatingPassword",
-                'name': "floatingPassword",
-                'placeholder': "Password"
-            })
-        }
-
+forms = {
+    "signInForm": SignInForm,
+    "signUpForm": SignUpForm
+    }
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
-        return render(request,"meTube/index.html", {
-            "signInForm": SignInForm,
-            "signUpForm": SignUpForm
-        })
+        return render(request,"meTube/login.html", forms)
     else:
-        return redirect(reverse('meTube:profile'))
+        return redirect(reverse('meTube:profile', args=[request.user.id]))
     
 def signIn(request):
     if request.method == "POST":
@@ -75,17 +25,15 @@ def signIn(request):
         user = authenticate(request, email = email, password = password)
         if user is not None:
             login(request, user)
-            return redirect(reverse('meTube:profile'))
+            return redirect(reverse('meTube:profile', args=[request.user.id]))
         else:
-            return render(request, "meTube/index.html", {
+            return render(request, "meTube/login.html", {
                 "sign_in_status": "error",
-                "signInForm": SignInForm,
-                "signUpForm": SignUpForm
+                "forms": forms
             })
-    return render(request, "meTube/index.html", {
+    return render(request, "meTube/login.html", {
         "sign_in_status": "error",
-        "signInForm": SignInForm,
-        "signUpForm": SignUpForm
+        "forms": forms
     })
 
 def signUp(request):
@@ -95,17 +43,27 @@ def signUp(request):
             user = form.save(commit=False)
             user.password = make_password(form.cleaned_data['password'])
             user.save()
-            return render(request, "meTube/index.html", {
+            return render(request, "meTube/login.html", {
                 "sign_up_status": "ok",
-                "signInForm": SignInForm,
-                "signUpForm": SignUpForm
+                "forms": forms
             })
-    return render(request, "meTube/index.html", {
+    return render(request, "meTube/login.html", {
         "status": "error",
-        "signInForm": SignInForm,
-        "signUpForm": SignUpForm
+        "forms": forms
     })
     
-
-def profile(request):
-    return render(request, "meTube/profile.html")
+def profile(request, user_id):
+    user = AppUser.objects.get(pk=user_id)
+    videos = Video.objects.filter(user=user_id)
+    
+    return render(request, "meTube/profile/index.html", {
+        "user": user,
+        "videos": videos
+    })
+    
+def signOut(request):
+    logout(request)
+    return render(request, "meTube/login.html", {
+        "sign_out_status": "ok",
+        "forms": forms
+    })
