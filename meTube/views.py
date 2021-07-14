@@ -10,12 +10,32 @@ forms = {
     "signInForm": SignInForm,
     "signUpForm": SignUpForm
     }
+    
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
-        return render(request,"meTube/login.html", forms)
+        return render(request, "meTube/login.html", forms)
     else:
-        return redirect(reverse('meTube:profile', args=[request.user.id]))
+        videos = Video.objects.all()
+        return render(request, "meTube/index.html", {
+            "videos":videos
+            })
+
+def signUp(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(form.cleaned_data['password'])
+            user.save()
+            return render(request, "meTube/login.html", {
+                "sign_up_status": "ok",
+                "forms": forms
+            })
+    return render(request, "meTube/login.html", {
+        "status": "error",
+        "forms": forms
+    })
     
 def signIn(request):
     if request.method == "POST":
@@ -35,20 +55,11 @@ def signIn(request):
         "sign_in_status": "error",
         "forms": forms
     })
-
-def signUp(request):
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.password = make_password(form.cleaned_data['password'])
-            user.save()
-            return render(request, "meTube/login.html", {
-                "sign_up_status": "ok",
-                "forms": forms
-            })
+    
+def signOut(request):
+    logout(request)
     return render(request, "meTube/login.html", {
-        "status": "error",
+        "sign_out_status": "ok",
         "forms": forms
     })
     
@@ -59,11 +70,4 @@ def profile(request, user_id):
     return render(request, "meTube/profile/index.html", {
         "user": user,
         "videos": videos
-    })
-    
-def signOut(request):
-    logout(request)
-    return render(request, "meTube/login.html", {
-        "sign_out_status": "ok",
-        "forms": forms
     })

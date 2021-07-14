@@ -20,7 +20,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark ps-5">
             <div class="container-fluid">
-                <a class="navbar-brand fs-4" href="#">MeTube.com</a>
+                <a class="navbar-brand fs-4" href="{% url 'meTube:index' %}">MeTube.com</a>
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -54,20 +54,20 @@
                             alt="">
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="#">Upload Video</a></li>
-                            {% comment %} <li><a class="dropdown-item" href="{% url 'meTube:profile' request.user.id %}">Profile</a></li> {% endcomment %}
+                            <li><a class="dropdown-item" href="{% url 'meTube:profile' request.user.id %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'meTube:signOut' %}">Logout</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-        <main>
+        <main class="container-fluid mt-3 mb-5">
             {% block content %} {% endblock %}
         </main>
-        
+{% comment %}         
         <footer class="d-flex justify-content-center">
             <p class="mt-5 mb-3 text-muted">By Timilehin Olusegun &copy; 2021.</p>
-        </footer>
+        </footer> {% endcomment %}
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
     </body>

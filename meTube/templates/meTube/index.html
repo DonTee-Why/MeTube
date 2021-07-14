@@ -1,91 +1,299 @@
-{% extends "meTube/layouts/layout.html" %}
-{% load static %}
-
-{% block body %}
-    <div>
-        <h1>meTube</h1>
-    </div>
-        {% if sign_out_status == "ok" %}
-            <div class="alert alert-success alert-dismissible fade show d-flex align-items-center w-25 mx-auto mb-4 d-print-none" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                </svg>
-                <div>
-                    <strong>Logged out</strong>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% else %}
-        {% endif %}
-    <main class="dt d-flex justify-content-around form-signin border border-0 shadow-lg rounded-3">
-        <!-- Log In -->
-        <div class="col-sm-6 dl">
-            <h1 class="h3 mb-4 fw-bolder text-white">Create Account</h1>
-            <h6 class="mb-4 fw-bold text-white">Create an account today and enjoy unlimited video content</h6>
-            {% if sign_up_status == "ok" %}
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center w-100 mx-auto mb-4 d-print-none" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </svg>
-                    <div>
-                        <strong>Account created successfully</strong>
+        {% extends "meTube/layouts/home_layout.html" %} {% load static %}
+        {% block content %}
+        <div class="px-3">
+            {% for video in videos %}
+                <div class="row row-cols-1 row-cols-md-4 g-5">
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{{ video.title }}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">{{ video.title }}</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            {% elif status == "error" %}
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center w-100 mx-auto mb-4 d-print-none" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </svg>
-                    <div>
-                        <strong>Invalid Credentials</strong>
+            {% empty %}
+                <p class="">You have not uploaded any video yet</p>
+                <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-4">
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none;  color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">
+                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{% lorem 2 b random %}</a>
+                                </h5>
+                                <div class="user-link">
+                                    <h6 class="card-subtitle text-muted">
+                                        <a href="/2" style="text-decoration: none; color: inherit;">Rita Dominic</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <small class="text-muted">14k views</small>
+                                <small class="text-muted">3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            {% else %}
-            {% endif %}
-            <form action="{% url 'meTube:signUp' %}" method="post" id="signInForm">
-                {% csrf_token %}
-                {% for field in signUpForm %}
-                    <div class="form-floating mb-4">
-                        {{ field }}
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    </div>
-                {% endfor %}
-                {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
-                <button class="w-100 btn btn-lg dl-btn-bg text-white" type="submit">Sign in</button>
-            </form>
+            {% endfor %}
         </div>
-        <!-- Divider -->
-        <!-- <div class="vl"></div> -->
-        <!-- Sign Up -->
-        <div class="col-sm-6 dr">
-            <h1 class="h3 mb-4 fw-bolder text-white">Log In</h1>
-            <h6 class="mb-4 fw-bold text-white">Already a member?</h6>
-            {% if sign_in_status == "error" %}
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center w-100 mx-auto mb-4 d-print-none" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                    </svg>
-                    <div>
-                        <strong>Invalid Credentials</strong>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endif %}
-            <form action="{% url 'meTube:signIn' %}" method="post" class="my-auto" id="signUpForm">
-                {% csrf_token %}
-                {% for field in signInForm %}
-                    <div class="form-floating mb-4">
-                        {{ field }}
-                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    </div>
-                {% endfor %}
-                {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
-
-                <button class="w-100 btn btn-lg dr-btn-bg text-white" type="submit">Sign in</button>
-            </form>
-        </div>
-
-    </main>
-{% endblock %}
+        <!-- End -->
+        {% endblock %}
