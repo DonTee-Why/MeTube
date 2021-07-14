@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext as _
 import os
+from django.utils import timezone
 
 def images_path():
     return os.path.join(settings.MEDIA_URL, 'videos')
@@ -26,8 +27,8 @@ class AppUser(models.Model):
     password = models.CharField(_("Password"), max_length=256)
     avatar = models.ImageField(_("Avatar"), upload_to='avatar/', height_field=500, width_field=500, max_length=None, blank=True)
     last_login = models.DateTimeField(_('Last Login'), blank=True, null=True)
-    date_created = models.DateTimeField(_("Date Created"), auto_now=True, auto_now_add=False)
-    date_updated = models.DateTimeField(_("Date Updated"), auto_now=False, auto_now_add=True)
+    date_created = models.DateTimeField(_("Date Created"), auto_now=False, auto_now_add=True)
+    last_modified = models.DateTimeField(_("Date Modified"), auto_now=True, auto_now_add=False)
     
     @property
     def is_authenticated(self):
@@ -53,10 +54,10 @@ class Video(models.Model):
 
     title = models.CharField(_("Tile"), max_length=50)
     caption = models.CharField(_("Caption"), max_length=256)
-    date_added = models.DateTimeField(_("Date Added"), auto_now=True, auto_now_add=False)
-    filename = models.FilePathField(_("File"), path=None, match=None, recursive=False, default=None, unique=True, max_length=100)
     user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    filename = models.FilePathField(_("File"), path=None, match=None, recursive=False, default=None, unique=True, max_length=100)
     active = models.BooleanField(_("Active"), default=True)
+    date_added = models.DateTimeField(_("Date Added"), auto_now=False, auto_now_add=True)
 
 class Like(models.Model):
 
@@ -72,8 +73,9 @@ class Like(models.Model):
     def get_absolute_url(self):
         return reverse("Like_detail", kwargs={"pk": self.pk})
 
-    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
     user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
+    date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
 
 class Comment(models.Model):
 
@@ -89,9 +91,10 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse("Comment_detail", kwargs={"pk": self.pk})
 
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
     comment = models.CharField(_("Comment"), max_length=256)
     video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
 
 class Reply(models.Model):
 
@@ -107,5 +110,24 @@ class Reply(models.Model):
     def get_absolute_url(self):
         return reverse("Reply_detail", kwargs={"pk": self.pk})
 
-    comment = models.ForeignKey("Comment", verbose_name=_("Comment"), on_delete=models.CASCADE)
     user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    comment = models.ForeignKey("Comment", verbose_name=_("Comment"), on_delete=models.CASCADE)
+    date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
+
+class View(models.Model):
+
+    
+
+    class Meta:
+        verbose_name = _("View")
+        verbose_name_plural = _("Views")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("View_detail", kwargs={"pk": self.pk})
+
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
+    date = models.DateTimeField(_("Date Added"), auto_now=False, auto_now_add=True)
