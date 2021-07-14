@@ -5,8 +5,8 @@ from django.utils.translation import gettext as _
 import os
 from django.utils import timezone
 
-def images_path():
-    return os.path.join(settings.MEDIA_URL, 'videos')
+def video_upload_path(instance, filename):
+    return 'videos/user_{0}/{1}'.format(instance.user.id, filename)
 class AppUser(models.Model):
 
     
@@ -55,7 +55,7 @@ class Video(models.Model):
     title = models.CharField(_("Tile"), max_length=50)
     caption = models.CharField(_("Caption"), max_length=256)
     user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
-    filename = models.FilePathField(_("File"), path=None, match=None, recursive=False, default=None, unique=True, max_length=100)
+    video = models.FileField(_("Video"), upload_to=video_upload_path, max_length=100)
     active = models.BooleanField(_("Active"), default=True)
     date_added = models.DateTimeField(_("Date Added"), auto_now=False, auto_now_add=True)
 
