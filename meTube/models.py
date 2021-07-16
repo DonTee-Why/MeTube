@@ -52,9 +52,9 @@ class Video(models.Model):
     def get_absolute_url(self):
         return reverse("Video_detail", kwargs={"pk": self.pk})
 
-    title = models.CharField(_("Tile"), max_length=50)
+    title = models.CharField(_("Title"), max_length=50)
     caption = models.CharField(_("Caption"), max_length=256)
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), related_name='user', on_delete=models.CASCADE)
     video = models.FileField(_("Video"), upload_to=video_upload_path, max_length=100)
     active = models.BooleanField(_("Active"), default=True)
     date_added = models.DateTimeField(_("Date Added"), auto_now=False, auto_now_add=True)
@@ -73,8 +73,8 @@ class Like(models.Model):
     def get_absolute_url(self):
         return reverse("Like_detail", kwargs={"pk": self.pk})
 
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
-    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), related_name='like_user', on_delete=models.CASCADE)
+    video = models.ForeignKey("Video", verbose_name=_("Video"), related_name='like_video', on_delete=models.CASCADE)
     date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
 
 class Comment(models.Model):
@@ -91,9 +91,9 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse("Comment_detail", kwargs={"pk": self.pk})
 
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), related_name='comment_user', on_delete=models.CASCADE)
     comment = models.CharField(_("Comment"), max_length=256)
-    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
+    video = models.ForeignKey("Video", verbose_name=_("Video"), related_name='comment_video', on_delete=models.CASCADE)
     date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
 
 class Reply(models.Model):
@@ -110,8 +110,8 @@ class Reply(models.Model):
     def get_absolute_url(self):
         return reverse("Reply_detail", kwargs={"pk": self.pk})
 
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
-    comment = models.ForeignKey("Comment", verbose_name=_("Comment"), on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), related_name='reply_user', on_delete=models.CASCADE)
+    comment = models.ForeignKey("Comment", verbose_name=_("Comment"), related_name='reply', on_delete=models.CASCADE)
     date = models.DateTimeField(_("Date Added"), auto_now=False, default=timezone.now)
 
 class View(models.Model):
@@ -128,6 +128,6 @@ class View(models.Model):
     def get_absolute_url(self):
         return reverse("View_detail", kwargs={"pk": self.pk})
 
-    user = models.ForeignKey("AppUser", verbose_name=_("User"), on_delete=models.CASCADE)
-    video = models.ForeignKey("Video", verbose_name=_("Video"), on_delete=models.CASCADE)
+    user = models.ForeignKey("AppUser", verbose_name=_("User"), related_name='viewer', on_delete=models.CASCADE)
+    video = models.ForeignKey("Video", verbose_name=_("Video"), related_name='viewed_video', on_delete=models.CASCADE)
     date = models.DateTimeField(_("Date Added"), auto_now=False, auto_now_add=True)
