@@ -7,7 +7,16 @@
     background: linear-gradient(360deg, #565656 0%, rgba(86, 86, 86, 0.9) 44.27%, rgba(86, 86, 86, 0.8) 76.04%, rgba(86, 86, 86, 0.7) 100%);
     transition: 0.5s ease-in-out,all !important;
   }
+
+  .vid-btn{
+    background: #212529 !important;
+    transition: 0.5s ease-in-out,all !important;
+  }
   
+  .vid-btn:hover{
+    background: #D08104 !important;
+    transition: 0.5s ease-in-out,all !important;
+  }
   .btn-change:hover{
     background: #D08104 !important;
     transition: 0.5s ease-in-out,all !important;
