@@ -1,7 +1,7 @@
 # meTube
 ----------
 
-MeTube is a vidoe straming web app built using the Python web development library, Django. It enables to user to register, sign in and upload videos of their choice. Other functionalities include the ability to like and comment videos.
+MeTube is a video straming web app built using the Python web development library, Django. It enables to user to register, sign in and upload videos of their choice. Other functionalities include the ability to like and comment videos.
 
 # Quickstart
 ----------
