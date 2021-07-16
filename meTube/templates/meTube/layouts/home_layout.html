@@ -53,7 +53,7 @@
                                 background=D08104&color=fff&rounded=true&format=svg&size=36"
                             alt="">
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Upload Video</a></li>
+                            <li><a class="dropdown-item" href="{% url 'meTube:add_video' %}">Upload Video</a></li>
                             <li><a class="dropdown-item" href="{% url 'meTube:profile' request.user.id %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'meTube:signOut' %}">Logout</a></li>
                         </ul>
