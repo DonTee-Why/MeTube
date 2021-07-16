@@ -13,3 +13,4 @@ video_app/__pycache__/models.cpython-38.pyc
 video_app/__pycache__/urls.cpython-38.pyc
 video_app/__pycache__/views.cpython-38.pyc
 .vscode
+uploads/
