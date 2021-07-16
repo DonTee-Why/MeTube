@@ -10,7 +10,7 @@ forms = {
     "signInForm": SignInForm,
     "signUpForm": SignUpForm
     }
-    
+
 # Create your views here.
 def index(request):
     if not request.user.is_authenticated:
@@ -70,4 +70,26 @@ def profile(request, user_id):
     return render(request, "meTube/profile/index.html", {
         "user": user,
         "videos": videos
+    })
+    
+def add_video(request):
+    return render(request, "meTube/video/index.html", {
+        "videoUploadForm": VideoUploadForm
+    })
+    
+def save_video(request):
+    if request.method == "POST":
+        form = VideoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            caption = form.cleaned_data['caption']
+            video = form.cleaned_data['video']
+            user = AppUser.objects.get(pk=int(request.user.id))
+            video = Video(title=title, caption=caption, user=user, video=video)
+            video.save()
+            return redirect(reverse('meTube:profile', args=[request.user.id]))
+            
+    return render(request, "meTube/video/index.html", {
+        "status": "error",
+        "videoUploadForm": VideoUploadForm
     })

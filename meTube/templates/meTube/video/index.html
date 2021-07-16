@@ -1,0 +1,38 @@
+        {% extends "meTube/layouts/home_layout.html" %} {% load static %}
+        {% block content %}
+        <div class="px-3">
+            <div class="card mx-auto mt-4 col-11 col-md-8" style="">
+                <div class="card-header bg-dark text-white p-4">
+                    <h4>Upload a new video</h4>
+                </div>
+                <div class="card-body">
+                    {% if status == "error" %}
+                        <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center w-25 mx-auto mb-4 d-print-none" role="alert">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg>
+                            <div>
+                                <strong>Video was not uploaded successfully</strong>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    <form action="{% url 'meTube:save_video' %}" method="post" enctype="multipart/form-data" id="videoUploadForm">
+                        {% csrf_token %}
+                        {% for field in videoUploadForm %}
+                            {% if field.label == 'Video' %}
+                                {{ field }}
+                            {% else %}
+                                <div class="form-floating mb-4">
+                                    {{ field }}
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% comment %} <img class="mb-4" src="{% static 'video_app/img/camera-logo.svg' %}" alt="" width="72" height="57"> {% endcomment %}
+                        <button class="w-100 btn btn-lg vid-btn text-white mt-3" type="submit">Upload Video</button>
+                    </form>
+            </div>
+        </div>
+        <!-- End -->
+        {% endblock %}
