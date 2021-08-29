@@ -5,10 +5,11 @@ from . import views
 app_name = "meTube"
 urlpatterns = [
     path("", views.index, name="index"),
+    path("login", views.sign_in_page, name="login"),
     path("signUp", views.signUp, name="signUp"),
     path("signIn", views.signIn, name="signIn"),
     path("signOut", views.signOut, name="signOut"),
-    path("profile/<int:user_id>", include([
+    path("profile/<int:user_id>/", include([
         path("", views.profile, name="profile")
     ])),
     path("video/", include([

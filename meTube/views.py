@@ -4,6 +4,7 @@ from django.urls import reverse
 from .models import AppUser, Video, Comment, Reply, Like
 from .forms import *
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 
 
 forms = {
@@ -12,14 +13,15 @@ forms = {
     }
 
 # Create your views here.
+@login_required
 def index(request):
-    if not request.user.is_authenticated:
-        return render(request, "meTube/login.html", forms)
-    else:
-        videos = Video.objects.all()
-        return render(request, "meTube/index.html", {
-            "videos":videos
-            })
+    videos = Video.objects.all()
+    return render(request, "meTube/index.html", {
+        "videos":videos
+        })
+
+def sign_in_page(request):
+    return render(request, "meTube/login.html", {"forms": forms})
 
 def signUp(request):
     if request.method == "POST":
@@ -32,10 +34,7 @@ def signUp(request):
                 "sign_up_status": "ok",
                 "forms": forms
             })
-    return render(request, "meTube/login.html", {
-        "status": "error",
-        "forms": forms
-    })
+    return redirect(reverse('meTube:login'))
     
 def signIn(request):
     if request.method == "POST":
@@ -45,17 +44,15 @@ def signIn(request):
         user = authenticate(request, email = email, password = password)
         if user is not None:
             login(request, user)
-            return redirect(reverse('meTube:profile', args=[request.user.id]))
+            return redirect(reverse('meTube:index'))
         else:
             return render(request, "meTube/login.html", {
                 "sign_in_status": "error",
                 "forms": forms
             })
-    return render(request, "meTube/login.html", {
-        "sign_in_status": "error",
-        "forms": forms
-    })
+    return redirect(reverse('meTube:login'))
     
+@login_required
 def signOut(request):
     logout(request)
     return render(request, "meTube/login.html", {
@@ -63,20 +60,22 @@ def signOut(request):
         "forms": forms
     })
     
+@login_required
 def profile(request, user_id):
     user = AppUser.objects.get(pk=user_id)
-    videos = Video.objects.filter(user=user_id)
-    
+    videos = Video.objects.filter(user=user)
     return render(request, "meTube/profile/index.html", {
         "user": user,
         "videos": videos
     })
     
+@login_required
 def add_video(request):
     return render(request, "meTube/video/index.html", {
         "videoUploadForm": VideoUploadForm
     })
     
+@login_required
 def save_video(request):
     if request.method == "POST":
         form = VideoUploadForm(request.POST, request.FILES)
@@ -88,8 +87,8 @@ def save_video(request):
             video = Video(title=title, caption=caption, user=user, video=video)
             video.save()
             return redirect(reverse('meTube:profile', args=[request.user.id]))
-            
-    return render(request, "meTube/video/index.html", {
-        "status": "error",
-        "videoUploadForm": VideoUploadForm
-    })
+    else:
+        return render(request, "meTube/video/index.html", {
+            "status": "error",
+            "videoUploadForm": VideoUploadForm
+        })
