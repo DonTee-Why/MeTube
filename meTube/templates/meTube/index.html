@@ -12,7 +12,7 @@
                                 </h5>
                                 <div class="user-link">
                                     <h6 class="card-subtitle text-muted">
-                                        <a href="/2" style="text-decoration: none;  color: inherit;">{{ video.user.first_name }} {{ video.user.surname }}</a>
+                                        <a href="{% url 'meTube:profile' video.user.id %}" style="text-decoration: none;  color: inherit;">{{ video.user.first_name }} {{ video.user.surname }}</a>
                                     </h6>
                                 </div>
                             </div>
