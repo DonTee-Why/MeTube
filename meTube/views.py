@@ -92,3 +92,7 @@ def save_video(request):
             "status": "error",
             "videoUploadForm": VideoUploadForm
         })
+
+@login_required
+def watch_video(request):
+    return render(request, "meTube/video/watch.html")
