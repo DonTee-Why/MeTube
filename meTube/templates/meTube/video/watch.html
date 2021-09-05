@@ -3,58 +3,21 @@
             <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
             <link rel="stylesheet" href="{% static 'meTube/css/player.css' %}" />
         {% endblock %}
+        {% block video_player_js %}
+            <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+            <script src="{% static 'meTube/js/player.js' %}"></script>
+        {% endblock %}
         {% block content %}
         <div class="px-3">
-            <div class="mx-auto mt-4" style="width: 60%;">
-                <video controls crossorigin playsinline preload data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player"
-                class=""
+            <div class="mx-auto mt-4 col-md-8" style="">
+                <video controls crossorigin playsinline
+                    data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg"
+                    id="player"
+                    class=""
                 >
-                    <source src="/uploads/videos/user_4/Manny_DXX.mp4" type="video/mp4" />
-                    <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a web
-                        browser that
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video
-                        </a>
-                    </p>
+                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" />
                 </video>
             </div>
         </div>
         <!-- End -->
-        {% endblock %}
-        {% block video_player_js %}
-            <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
-            <script>
-                var controls =
-                [
-                    'play-large', // The large play button in the center
-                    //'restart', // Restart playback
-                    //'rewind', // Rewind by the seek time (default 10 seconds)
-                    'play', // Play/pause playback
-                    'fast-forward', // Fast forward by the seek time (default 10 seconds)
-                    'progress', // The progress bar and scrubber for playback and buffering
-                    'current-time', // The current time of playback
-                    'duration', // The full duration of the media
-                    'mute', // Toggle mute
-                    'volume', // Volume control
-                    'captions', // Toggle captions
-                    'settings', // Settings menu
-                    'pip', // Picture-in-picture (currently Safari only)
-                    'airplay', // Airplay (currently Safari only)
-                    //'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
-                    'fullscreen' // Toggle fullscreen
-                ];
-
-                const player = new Plyr('#player',{
-                    controls,
-                    hideControls: true,
-                    keyboard: {
-                        focused: true,
-                        global: false
-                    },
-                    tooltips: {
-                        controls: true,
-                        seek: true
-                    }
-                });
-            </script>
         {% endblock %}
