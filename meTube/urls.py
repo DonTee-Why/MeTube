@@ -15,6 +15,6 @@ urlpatterns = [
     path("video/", include([
         path("add", views.add_video, name="add_video"),
         path("save", views.save_video, name="save_video"),
-        path("watch", views.watch_video, name="watch_video")
+        path("<int:video_id>", views.watch_video, name="watch_video")
     ]))
 ]

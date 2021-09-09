@@ -3,7 +3,7 @@
         <div class="card mx-auto mt-4 w-75" style="width: 80%;">
             <div class="card-header bg-dark p-4">
                 <figure class="figure col-sm-8 d-flex align-items-center">
-                    <img class="" href="#" id="" src="https://ui-avatars.com/api/?name=
+                    <img class="" id="" src="https://ui-avatars.com/api/?name=
                         {{ request.user.first_name }}+{{ request.user.surname }}
                         &background=FB9E0C&color=fff&rounded=true&size=80&format=svg"
                     alt="" >
@@ -25,7 +25,7 @@
                                     <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title text-truncate">
-                                            <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{{ video.title }}</a>
+                                            <a href="{% url 'meTube:watch_video' video.id %}" class="stretched-link" style="text-decoration: none; color: inherit;">{{ video.title }}</a>
                                         </h5>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">

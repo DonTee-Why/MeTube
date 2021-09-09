@@ -94,5 +94,10 @@ def save_video(request):
         })
 
 @login_required
-def watch_video(request):
-    return render(request, "meTube/video/watch.html")
+def watch_video(request, video_id):
+    video = Video.objects.get(pk=video_id)
+    user = AppUser.objects.get(pk=video.user_id)
+    return render(request, "meTube/video/watch.html",{
+        "video": video,
+        "user": user
+    })
