@@ -98,9 +98,11 @@ def save_video(request):
 def watch_video(request, video_id):
     video = Video.objects.get(pk=video_id)
     user = AppUser.objects.get(pk=video.user_id)
+    views = View.objects.filter(video=video.id).count()
     return render(request, "meTube/video/watch.html",{
         "video": video,
-        "user": user
+        "user": user,
+        "views": views
     })
 
 def update_view(request):
