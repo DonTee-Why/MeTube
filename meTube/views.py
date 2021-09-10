@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import AppUser, Video, Comment, Reply, Like
+from .models import AppUser, Video, Comment, Reply, Like, View
 from .forms import *
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
@@ -101,3 +102,19 @@ def watch_video(request, video_id):
         "video": video,
         "user": user
     })
+
+def update_view(request):
+    if request.is_ajax and request.method == "POST":
+        video = Video.objects.get(pk=request.POST.get('video_id'))
+        user = AppUser.objects.get(pk=request.POST.get('user_id'))
+
+        if video is not None and user is not None:
+            View.objects.create(
+                user = user,
+                video = video
+            )
+            return JsonResponse({"status": "success"})
+        else:
+            return JsonResponse({"status": "video or user not found"}, status=404)
+    return JsonResponse({"status": "error"}, status=400)
+

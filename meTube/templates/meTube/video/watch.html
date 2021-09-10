@@ -9,6 +9,9 @@
         {% endblock %}
         {% block content %}
         <div class="px-3">
+        {% csrf_token %}
+        <input type="hidden" name="video_id" value="{{ video.id }}">
+        <input type="hidden" name="user_id" value="{{ request.user.id }}">
             <div class="mx-auto mt-4 col-md-8" style="">
                 <video controls crossorigin playsinline
                     data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg"
@@ -16,12 +19,13 @@
                     class=""
                 >
                     <source src="{{ MEDIA_URL }}{{ video.video }}" type="video/mp4" />
+
                 </video>
                 <div class="pt-3">
                     <h4>{{ video.title }}</h4>
                     <div class="d-flex align-items-center justify-content-between">
                         <div id="" class="d-flex">
-                            <h6>14k views<span class="px-2">.</span>{{ video.date_added|date:"DATE_FORMAT" }}</h6>
+                            <h6>14k view<span class="px-2">.</span>{{ video.date_added|date:"DATE_FORMAT" }}</h6>
                         </div>
                         <div id="like-container" class="d-flex align-items-center">
                             <button id="like-btn" class="btn d-flex py-1 px-2">
