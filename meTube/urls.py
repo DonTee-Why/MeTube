@@ -10,7 +10,8 @@ urlpatterns = [
     path("signIn", views.signIn, name="signIn"),
     path("signOut", views.signOut, name="signOut"),
     path("profile/<int:user_id>/", include([
-        path("", views.profile, name="profile")
+        path("", views.profile, name="profile"),
+        path("deleteVideo", views.delete_video, name="delete_video")
     ])),
     path("video/", include([
         path("add", views.add_video, name="add_video"),

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import JsonResponse
+from django.http.response import HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from .models import AppUser, Video, Comment, Reply, Like, View
@@ -93,6 +93,18 @@ def save_video(request):
             "status": "error",
             "videoUploadForm": VideoUploadForm
         })
+        
+@login_required
+def delete_video(request,user_id):
+    if request.method == "POST" and user_id != request.user.id:
+        user = AppUser.objects.get(pk=int(request.user.id))
+        video = Video.objects.filter(pk=request.POST.get('video_id'), user=user)
+        if video is not None:
+            video.delete()
+            return JsonResponse({"status": "success"}, status=200)
+        else:
+            return JsonResponse({"status": "error"}, status=401)
+    return HttpResponseForbidden()
 
 @login_required
 def watch_video(request, video_id):
@@ -119,4 +131,3 @@ def update_view(request):
         else:
             return JsonResponse({"status": "video or user not found"}, status=404)
     return JsonResponse({"status": "error"}, status=400)
-
