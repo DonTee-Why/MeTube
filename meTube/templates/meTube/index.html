@@ -8,7 +8,7 @@
                             <img src="{% static 'meTube/img/PM.jpeg' %}" class="img-fluid" alt="">
                             <div class="card-body">
                                 <h5 class="card-title text-truncate">
-                                    <a href="#" class="stretched-link" style="text-decoration: none; color: inherit;">{{ video.title }}</a>
+                                    <a href="{% url 'meTube:watch_video' video.id %}" class="stretched-link" style="text-decoration: none; color: inherit;">{{ video.title }}</a>
                                 </h5>
                                 <div class="user-link">
                                     <h6 class="card-subtitle text-muted">
